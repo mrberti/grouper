@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>Grouper</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Grouper</h1>
+    <p>Assign groups randomly!</p>
+    <h2>Person Pool</h2>
+    <input class="btn" type="button" value="+" onclick="addPerson()">
+    <ul class="list-group" id="persons_list">
+      <li class="list-group-item">Simon</li>
+      <li class="list-group-item">Rioko</li>
+      <li class="list-group-item">Akiko</li>
+      <li class="list-group-item">Maiko</li>
+      <!-- <li class="list-group-item">ASD</li>
+      <li class="list-group-item">FFF</li>
+      <li class="list-group-item">dsa</li>
+      <li class="list-group-item">Asd</li>
+      <li class="list-group-item">毎子</li> -->
+    </ul>
+  </div>
+  <div class="container">
+    <label for="no_groups">Number of groups: </label><input id="no_groups" type="number" value="2">
+    </br>
+    <input class="btn" type="button" value="Assign!" onclick="splitGroups()">
+  </div>
+  <div class="container">
+    <ul class="list-group list-group-horizontal" id="groups-ul"></ul>
+  </div>
+  <script src="grouper.js"></script>
+</body>
+</html>

@@ -15,8 +15,7 @@ var preAssigned = [
 // var pre_assigned = [];
 
 function addPerson() {
-    // var newPerson = prompt("Name", "Test person");
-    newPerson = elInputName.value;
+    var newPerson = elInputName.value;
     if (newPerson) {
         var newPersonListItem = document.createElement("li");
         newPersonListItem.setAttribute("id", newPerson);

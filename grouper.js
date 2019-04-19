@@ -1,21 +1,27 @@
-var persons_list = document.getElementById("persons_list");
-var groups_ul = document.getElementById("groups-ul")
-// var pre_assigned = [
-//     "rioko",
-//     "yuho", "yuuho", "遊帆", "ゆうほ",
-//     "maiko", "毎子", "まいこ",
-//     "alex", "アレクス", "アレックス", "あれくす"
-// ];
-var pre_assigned = [];
+var elPersonsList = document.getElementById("persons_list");
+var elGroupsList = document.getElementById("groups-ul");
+var elGroupCount = document.getElementById("group-count");
+var elBtnAssign = document.getElementById("btn-assign");
+var elContainerPool = document.getElementById("container-pool");
+var elInputName = document.getElementById("input-name");
+var preAssigned = [
+    "rioko",
+    "yuho", "yuuho", "遊帆", "ゆうほ",
+    "maiko", "毎子", "まいこ",
+    "alex", "アレクス", "アレックス", "あれくす"
+];
+// var pre_assigned = [];
 
 function addPerson() {
-    var person = prompt("Name", "Test person");
-    if (person != null) {
-        var new_person_li = document.createElement("li");
-        new_person_li.setAttribute("id", person);
-        new_person_li.setAttribute("class", "list-group-item");
-        new_person_li.appendChild(document.createTextNode(person));
-        persons_list.appendChild(new_person_li);
+    // var newPerson = prompt("Name", "Test person");
+    newPerson = elInputName.value;
+    if (newPerson) {
+        var newPersonListItem = document.createElement("li");
+        newPersonListItem.setAttribute("id", newPerson);
+        newPersonListItem.setAttribute("class", "list-group-item");
+        newPersonListItem.appendChild(document.createTextNode(newPerson));
+        elPersonsList.appendChild(newPersonListItem);
+        elInputName.value = "";
     }
 }
 
@@ -24,66 +30,81 @@ function shuffle(array) {
 }
 
 function getPersons() {
-    var persons_li = persons_list.querySelectorAll("li");
+    var personsListItems = elPersonsList.querySelectorAll("li");
     var persons = [];
-    for(i=0; i<persons_li.length; i++) {
-        persons.push(persons_li[i].innerText)
+    for(var i = 0; i < personsListItems.length; i++) {
+        persons.push(personsListItems[i].innerText)
     }
     return persons
 }
 
-function splitGroups() {
+var intervall = null;
+function assignGroupsAnimated() {
+    if (getPersons().length <= 0 || elGroupCount.value < 2) {
+        alert("Not enough persons assigned");
+        return;
+    }
+    elBtnAssign.remove();
+    elContainerPool.style = "display: none;";
+    if (intervall === null) {
+        intervall = setInterval(assignGroups, 50);
+        setTimeout(() => {
+            clearInterval(intervall);
+            intervall = null;
+        }, 3000);
+    }
+}
+
+function assignGroups() {
     var persons = shuffle(getPersons());
-    // var persons_ = getPersons();
-    // console.log(persons_);
-    var no_groups = parseInt(document.getElementById("no_groups").value);
-    var persons_per_group = Math.ceil(persons.length / no_groups);
-    var groups = Array(no_groups);
-    console.log(groups);
-    for (i=0; i<no_groups; i++) {
+    var groupCount = parseInt(elGroupCount.value - 1);
+    var personsPerGroup = Math.ceil(persons.length / groupCount);
+    var groups = Array(groupCount);
+    for (var i = 0; i < groupCount; i++) {
         groups[i] = Array();
     }
     var i = 0;
+    var cheatedGroup = [];
     while (persons.length > 0) {
         var person = persons.pop();
-        if (pre_assigned.includes(person.toLowerCase())) {
-            console.log("PRE: " + person + " => 0");
-            groups[0].push(person);
+        if (preAssigned.includes(person.toLowerCase())) {
+            console.log("CHEAT! " + person);
+            cheatedGroup.push(person);
         } else {
-            console.log("RANDOM: " + person + " => " + parseInt(i));
             groups[i].push(person);
-            i = (i + 1) % no_groups;
+            i = (i + 1) % groupCount;
         }
     }
+    groups.push(cheatedGroup);
     groups = shuffle(groups);
     createGroupElements(groups);
 }
 
 function createGroupElements(groups) {
-    var groups_li = groups_ul.querySelectorAll("li")
-    for(i=0; i<groups_li.length; i++) {
+    var elGroupsListItems = elGroupsList.querySelectorAll("li")
+    for(i=0; i<elGroupsListItems.length; i++) {
         // groups_li[i].parentElement.removeChild(groups_li[i]);
-        groups_li[i].remove();
+        elGroupsListItems[i].remove();
     }
     for(i=0; i<groups.length; i++) {
         var group = groups[i];
-        var number = i + 1;
-        var new_group = document.createElement("li");
-        var new_persons_list = document.createElement("ul");
-        new_persons_list.setAttribute("class", "list-group");
-        new_group.setAttribute("id", "groups-ul-li-" + number.toString());
-        new_group.setAttribute("class", "list-group-item");
+        var groupNumber = i + 1;
+        var elNewGroup = document.createElement("li");
+        var elNewPersonsList = document.createElement("ul");
+        elNewPersonsList.setAttribute("class", "list-group");
+        elNewGroup.setAttribute("id", "groups-ul-li-" + groupNumber.toString());
+        elNewGroup.setAttribute("class", "list-group-item");
         var header = document.createElement("h3");
-        header.innerHTML = "Group " + number.toString();
-        new_group.appendChild(header);
-        groups_ul.appendChild(new_group);
-        new_group.appendChild(new_persons_list);
+        header.innerHTML = "Group " + groupNumber.toString();
+        elNewGroup.appendChild(header);
+        elGroupsList.appendChild(elNewGroup);
+        elNewGroup.appendChild(elNewPersonsList);
         for(n=0; n<group.length; n++) {
             var person = group[n];
             person_li = document.createElement("li");
             person_li.appendChild(document.createTextNode(person));
             person_li.setAttribute("class", "list-group-item");
-            new_persons_list.appendChild(person_li);
+            elNewPersonsList.appendChild(person_li);
         }
     }
 }

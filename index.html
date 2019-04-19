@@ -8,27 +8,42 @@
   <title>Grouper</title>
 </head>
 <body>
-  <div class="container">
+  <div class="jumbotron">
+  <!-- <div class="container"> -->
     <h1>Grouper</h1>
     <p>Assign groups randomly!</p>
-    <h2>Person Pool</h2>
-    <input class="btn" type="button" value="+" onclick="addPerson()">
+  </div>
+  <div id="container-pool" class="container">
+    <!-- <h2>Person Pool</h2> -->
     <ul class="list-group" id="persons_list">
       <li class="list-group-item">Simon</li>
       <li class="list-group-item">Rioko</li>
       <li class="list-group-item">Akiko</li>
       <li class="list-group-item">Maiko</li>
-      <!-- <li class="list-group-item">ASD</li>
+      <li class="list-group-item">Alex</li>
+      <!-- <li class="list-group-item">Yuho</li>
+      <li class="list-group-item">ASD</li>
       <li class="list-group-item">FFF</li>
       <li class="list-group-item">dsa</li>
-      <li class="list-group-item">Asd</li>
-      <li class="list-group-item">毎子</li> -->
+      <li class="list-group-item">Asd</li> -->
+      <!-- <li class="list-group-item">毎子</li> -->
     </ul>
-  </div>
-  <div class="container">
-    <label for="no_groups">Number of groups: </label><input id="no_groups" type="number" value="2">
-    </br>
-    <input class="btn" type="button" value="Assign!" onclick="splitGroups()">
+    <div class="input-group mb-3">
+      <input id="input-name" type="text" class="form-control" placeholder="Name">
+      <input id="btn-add-person" class="btn btn-secondary input-group-append" type="button" value="+" onclick="addPerson()">
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <!-- <label class="input-group-prepend" for="group-count">Number of groups:</label> -->
+        <span class="input-group-text">Number of groups</span>
+      </div>
+      <input id="group-count" type="number" class="form-control" value="4" min="2">
+    </div>
+
+    <div class="form-group mb-3">
+        <input id="btn-assign" class="btn btn-primary form-control" type="button" value="Assign!" onclick="assignGroupsAnimated()">
+    </div>
   </div>
   <div class="container">
     <ul class="list-group list-group-horizontal" id="groups-ul"></ul>

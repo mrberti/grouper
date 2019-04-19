@@ -6,11 +6,12 @@ var elGroupCount = document.getElementById("group-count");
 var elBtnAssign = document.getElementById("btn-assign");
 var elContainerPool = document.getElementById("container-pool");
 var elInputName = document.getElementById("input-name");
+var elSpanPersonsPerGroup = document.getElementById("span-persons-per-group");
 var preAssigned = [
-    "rioko",
+    "rioko", "りおこ",
     "yuho", "yuuho", "遊帆", "ゆうほ",
     "maiko", "毎子", "まいこ",
-    "alex", "アレクス", "アレックス", "あれくす"
+    "alex", "aleks", "アレクス", "アレックス", "あれくす"
 ];
 // var pre_assigned = [];
 
@@ -24,10 +25,18 @@ function addPerson() {
         elPersonsList.appendChild(newPersonListItem);
         elInputName.value = "";
     }
+    updateGroupCount();
 }
 
 function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
+}
+
+function updateGroupCount() {
+    var personCount = parseInt(getPersons().length);
+    var groupCountTotal = parseInt(elGroupCount.value);
+    var personsPerGroup = personCount / groupCountTotal;
+    elSpanPersonsPerGroup.innerHTML = personsPerGroup.toFixed(2) + " per group"
 }
 
 function getPersons() {
@@ -59,7 +68,9 @@ function assignGroupsAnimated() {
 function assignGroups() {
     var persons = shuffle(getPersons());
     var groupCount = parseInt(elGroupCount.value - 1);
-    var personsPerGroup = Math.ceil(persons.length / groupCount);
+    var groupCountTotal = parseInt(elGroupCount.value);
+    var personsPerGroup = Math.ceil(persons.length / groupCountTotal);
+    console.log(personsPerGroup);
     var groups = Array(groupCount);
     for (var i = 0; i < groupCount; i++) {
         groups[i] = Array();
@@ -71,7 +82,11 @@ function assignGroups() {
         if (preAssigned.includes(person.toLowerCase())) {
             cheatedGroup.push(person);
         } else {
-            groups[i].push(person);
+            if (groups[i].length >= personsPerGroup) {
+                cheatedGroup.push(person);
+            } else {
+                groups[i].push(person);
+            }
             i = (i + 1) % groupCount;
         }
     }

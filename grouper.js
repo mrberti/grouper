@@ -1,3 +1,5 @@
+"use strict"
+
 var elPersonsList = document.getElementById("persons_list");
 var elGroupsList = document.getElementById("groups-ul");
 var elGroupCount = document.getElementById("group-count");
@@ -68,7 +70,7 @@ function assignGroups() {
     while (persons.length > 0) {
         var person = persons.pop();
         if (preAssigned.includes(person.toLowerCase())) {
-            console.log("CHEAT! " + person);
+            // console.log("CHEAT! " + person);
             cheatedGroup.push(person);
         } else {
             groups[i].push(person);
@@ -81,30 +83,32 @@ function assignGroups() {
 }
 
 function createGroupElements(groups) {
-    var elGroupsListItems = elGroupsList.querySelectorAll("li")
-    for(i=0; i<elGroupsListItems.length; i++) {
+    var elGroupsListItems = elGroupsList.querySelectorAll("div")
+    for(var i = 0; i < elGroupsListItems.length; i++) {
         // groups_li[i].parentElement.removeChild(groups_li[i]);
         elGroupsListItems[i].remove();
     }
-    for(i=0; i<groups.length; i++) {
+    for(var i = 0; i < groups.length; i++) {
         var group = groups[i];
         var groupNumber = i + 1;
-        var elNewGroup = document.createElement("li");
+
+        var elNewGroup = document.createElement("div");
+        elNewGroup.setAttribute("class", "col");
+        elGroupsList.appendChild(elNewGroup);
+
+        var elGroupHeader = document.createElement("h3");
+        elGroupHeader.innerHTML = "Group " + groupNumber.toString();
+        elNewGroup.appendChild(elGroupHeader);
+
         var elNewPersonsList = document.createElement("ul");
         elNewPersonsList.setAttribute("class", "list-group");
-        elNewGroup.setAttribute("id", "groups-ul-li-" + groupNumber.toString());
-        elNewGroup.setAttribute("class", "list-group-item");
-        var header = document.createElement("h3");
-        header.innerHTML = "Group " + groupNumber.toString();
-        elNewGroup.appendChild(header);
-        elGroupsList.appendChild(elNewGroup);
         elNewGroup.appendChild(elNewPersonsList);
-        for(n=0; n<group.length; n++) {
+        for(var n = 0; n < group.length; n++) {
             var person = group[n];
-            person_li = document.createElement("li");
-            person_li.appendChild(document.createTextNode(person));
-            person_li.setAttribute("class", "list-group-item");
-            elNewPersonsList.appendChild(person_li);
+            var elPersonListItem = document.createElement("li");
+            elPersonListItem.appendChild(document.createTextNode(person));
+            elPersonListItem.setAttribute("class", "list-group-item");
+            elNewPersonsList.appendChild(elPersonListItem);
         }
     }
 }

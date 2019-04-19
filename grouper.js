@@ -1,6 +1,6 @@
 "use strict"
 
-var elPersonsList = document.getElementById("persons_list");
+var elPersonsList = document.getElementById("list-persons");
 var elGroupsList = document.getElementById("groups-ul");
 var elGroupCount = document.getElementById("group-count");
 var elBtnAssign = document.getElementById("btn-assign");
@@ -69,7 +69,6 @@ function assignGroups() {
     while (persons.length > 0) {
         var person = persons.pop();
         if (preAssigned.includes(person.toLowerCase())) {
-            // console.log("CHEAT! " + person);
             cheatedGroup.push(person);
         } else {
             groups[i].push(person);
@@ -84,7 +83,6 @@ function assignGroups() {
 function createGroupElements(groups) {
     var elGroupsListItems = elGroupsList.querySelectorAll("div")
     for(var i = 0; i < elGroupsListItems.length; i++) {
-        // groups_li[i].parentElement.removeChild(groups_li[i]);
         elGroupsListItems[i].remove();
     }
     for(var i = 0; i < groups.length; i++) {

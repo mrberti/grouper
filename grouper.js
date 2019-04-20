@@ -8,7 +8,7 @@ var elContainerPool = document.getElementById("container-pool");
 var elInputName = document.getElementById("input-name");
 var elSpanPersonsPerGroup = document.getElementById("span-persons-per-group");
 var preAssigned = [
-    "rioko", "りおこ",
+    // "thomas", "tomas", "tommy",
     "yuho", "yuuho", "遊帆", "ゆうほ",
     "maiko", "毎子", "まいこ",
     "alex", "aleks", "アレクス", "アレックス", "あれくす"
@@ -69,7 +69,7 @@ function assignGroups() {
     var persons = shuffle(getPersons());
     var groupCount = parseInt(elGroupCount.value - 1);
     var groupCountTotal = parseInt(elGroupCount.value);
-    var personsPerGroup = Math.ceil(persons.length / groupCountTotal);
+    var personsPerGroup = Math.floor(persons.length / groupCountTotal);
     console.log(personsPerGroup);
     var groups = Array(groupCount);
     for (var i = 0; i < groupCount; i++) {

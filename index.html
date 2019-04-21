@@ -7,21 +7,19 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <title>Grouper</title>
 </head>
-<body>
+<body onload="updateGroupCount()">
   <div class="jumbotron">
     <h1>Grouper</h1>
     <p>Assign groups randomly!</p>
   </div>
   <div id="container-pool" class="container">
     <ul class="list-group" id="list-persons">
-      <!-- <li class="list-group-item">Kioko</li>
+      <!-- <li class="list-group-item">Rioko</li>
       <li class="list-group-item">Alex</li>
       <li class="list-group-item">Maiko</li>
       <li class="list-group-item">Yuho</li>
       <li class="list-group-item">Minami</li>
       <li class="list-group-item">William</li>
-      <li class="list-group-item">Clemens</li>
-      <li class="list-group-item">Kana</li>
       <li class="list-group-item">Mariko</li>
       <li class="list-group-item">Thomas</li>
       <li class="list-group-item">Kishi</li>
@@ -39,7 +37,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text">Number of groups</span>
       </div>
-      <input id="group-count" type="number" class="form-control" value="3" min="2" onchange="updateGroupCount()">
+      <input id="group-count" type="number" class="form-control" value="2" min="2" onchange="updateGroupCount()">
       <div class="input-group-append">
         <span id="span-persons-per-group" class="input-group-text"></span>
       </div>

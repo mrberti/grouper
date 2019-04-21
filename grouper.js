@@ -69,7 +69,7 @@ function assignGroups() {
     var persons = shuffle(getPersons());
     var groupCount = parseInt(elGroupCount.value - 1);
     var groupCountTotal = parseInt(elGroupCount.value);
-    var personsPerGroup = Math.floor(persons.length / groupCountTotal);
+    var personsPerGroup = Math.round(persons.length / groupCountTotal);
     console.log(personsPerGroup);
     var groups = Array(groupCount);
     for (var i = 0; i < groupCount; i++) {

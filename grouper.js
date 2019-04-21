@@ -7,13 +7,7 @@ var elBtnAssign = document.getElementById("btn-assign");
 var elContainerPool = document.getElementById("container-pool");
 var elInputName = document.getElementById("input-name");
 var elSpanPersonsPerGroup = document.getElementById("span-persons-per-group");
-var preAssigned = [
-    // "thomas", "tomas", "tommy",
-    "yuho", "yuuho", "遊帆", "ゆうほ",
-    "maiko", "毎子", "まいこ",
-    "alex", "aleks", "アレクス", "アレックス", "あれくす"
-];
-// var pre_assigned = [];
+var preAssigned = [];
 
 function addPerson() {
     var newPerson = elInputName.value;
@@ -54,8 +48,8 @@ function assignGroupsAnimated() {
         alert("Not enough persons assigned");
         return;
     }
-    elBtnAssign.remove();
-    elContainerPool.style = "display: none;";
+    // elBtnAssign.remove();
+    // elContainerPool.style = "display: none;";
     if (intervall === null) {
         intervall = setInterval(assignGroups, 50);
         setTimeout(() => {
